@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './index.css'
 import { connect } from 'react-redux'
+import { actionCreators }  from './store'
 // class Header extends Component {
 //     constructor(props) {
 //         super(props)
@@ -68,26 +69,28 @@ const Header = (props) => {
 }
 const mapStateToProps = (state) => {
     return {
-        focused: state.focused // 把redux里面数据中的focused映射过来.组建中通过this.props来调用
+        focused: state.header.focused // 把redux里面数据中的focused映射过来.组建中通过this.props来调用
     }
 }
 const mapDispathToProps = (dispath) => {
     return {
         inputFocus () {
-            // 创建一个action
-            const action = {
-                type: 'search_focus'
-            }
-            //  向reducer派发action
-            dispath(action)
+            // // 创建一个action
+            // const action = {
+            //     type: 'search_focus'
+            // }
+            // //  向reducer派发action
+            // dispath(action)
+            dispath(actionCreators.searchFocus())
         },
         inputBlur () {
-            // 创建一个action
-            const action = {
-                type: 'search_blur'
-            }
-            //  向reducer派发action
-            dispath(action)
+            // // 创建一个action
+            // const action = {
+            //     type: 'search_blur'
+            // }
+            // //  向reducer派发action
+            // dispath(action)
+            dispath(actionCreators.searchBlur())
         }
     }
 }

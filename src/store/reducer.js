@@ -1,18 +1,9 @@
-// 创建默认的值
-const defaultState = {
-    focused: false
-}
+// 把其他的目录下的reducer整合起来
+import { combineReducers } from 'redux';
+import { reducer as headerReducer} from './../common/header/store'
 
-export default (state = defaultState, action) => {
-    if (action.type === 'search_focus') {
-        return {
-            focused: true
-        }
-    }
-    if (action.type === 'search_blur') {
-        return {
-            focused: false
-        }
-    }
-    return state
-}
+// 把其他reducer整合起来，导出
+const reducer =  combineReducers({
+    header: headerReducer
+})
+export default reducer
