@@ -1,18 +1,29 @@
 import * as actionTypes from './actionTypes'
 // 创建默认的值
 const defaultState = {
-    focused: false
+    focused: false,
+    list: []
 }
 
 export default (state = defaultState, action) => {
-    if (action.type === actionTypes.SEARCH_FOCUS) {
-        return {
-            focused: true
+    switch (action.type) {
+        case actionTypes.SEARCH_FOCUS: {
+            return {
+                ...state,
+                focused: true
+            }
         }
-    }
-    if (action.type === actionTypes.SEARCH_BLUR) {
-        return {
-            focused: false
+        case actionTypes.SEARCH_BLUR: {
+            return {
+                ...state,
+                focused: false
+            }
+        }
+        case actionTypes.CHANGE_LIST: {
+            return {
+                ...state,
+                list: action.data
+            }
         }
     }
     return state
