@@ -7,15 +7,19 @@ class Header extends Component {
         super(props)
     }
     showInfo (val) {
-        if (val) {
+        if (val || this.props.mouseIn) {
             return (
-                <div className="searchInfo" >
+                <div className="searchInfo" onMouseEnter={this.props.mouseEnter} onMouseLeave={this.props.mouseLeave}>
                     <div className="searchTitle">
                         热门文章
-                        <div className="searchInfoSwitch">换一批</div>
+                        {/*() => this.props.changePage(this.props.page, this.props.totalPage) 向mapDispathToProps里面的方法传递redux中
+                        props的参数时需要通过箭头函数来调用*/}
+                        <div className="searchInfoSwitch" onClick={() => this.props.changePage(this.props.page, this.props.totalPage, this.icon)}>
+                            <i ref={(val) => {this.icon = val}} className="iconfont spin">&#xe851;</i>换一批
+                        </div>
                     </div>
                     <div className="searchInfoList">
-                        {this.props.list.splice(0, 10).map((item) => {
+                        {this.props.list.slice(this.props.page * 10, this.props.page * 10 + 10).map((item) => {
                             return (
                                 <div className="searchInfoItem" key={item}>{item}</div>
                             )
@@ -39,7 +43,7 @@ class Header extends Component {
                     <div className="searchWrap">
                         <input className={`search ${this.props.focused ? 'focused' : ''}`}
                                placeholder="搜索"
-                               onFocus={this.props.inputFocus}
+                               onFocus={() => this.props.inputFocus(this.props.list)}
                                onBlur={this.props.inputBlur}
                         >
                         </input>
@@ -115,19 +119,22 @@ class Header extends Component {
 const mapStateToProps = (state) => {
     return {
         focused: state.header.focused, // 把redux里面数据中的focused映射过来.组建中通过this.props来调用
-        list: state.header.list
+        list: state.header.list,
+        page: state.header.page,
+        mouseIn: state.header.mouseIn,
+        totalPage: state.header.totalPage
     }
 }
 const mapDispathToProps = (dispatch) => {
     return {
-        inputFocus () {
+        inputFocus (list) {
             // // 创建一个action
             // const action = {
             //     type: 'search_focus'
             // }
             // //  向reducer派发action
             // dispath(action)
-            dispatch(actionCreators.getList())
+            (!list.length) && dispatch(actionCreators.getList())
             dispatch(actionCreators.searchFocus())
         },
         inputBlur () {
@@ -138,7 +145,23 @@ const mapDispathToProps = (dispatch) => {
             // //  向reducer派发action
             // dispath(action)
             dispatch(actionCreators.searchBlur())
-        }
+        },
+        mouseEnter () {
+            dispatch(actionCreators.mouseEnter())
+        },
+        mouseLeave () {
+            dispatch(actionCreators.mouseLeave())
+        },
+        changePage (page, totalPage, dom) {
+            let originAngle = dom.style.transform.replace(/[^0-9]/ig, '');
+            if (originAngle) {
+                originAngle = parseInt(originAngle, 10);
+            }else {
+                originAngle = 0;
+            }
+            dom.style.transform = 'rotate(' + (originAngle + 360) + 'deg)';
+            dispatch(actionCreators.changePage(page, totalPage))
+        },
     }
 }
 // 连接redux

@@ -2,7 +2,10 @@ import * as actionTypes from './actionTypes'
 // 创建默认的值
 const defaultState = {
     focused: false,
-    list: []
+    list: [],
+    page: 0,
+    mouseIn: false,
+    totalPage: 0
 }
 
 export default (state = defaultState, action) => {
@@ -14,15 +17,38 @@ export default (state = defaultState, action) => {
             }
         }
         case actionTypes.SEARCH_BLUR: {
+            console.log(action.val)
             return {
                 ...state,
                 focused: false
             }
         }
-        case actionTypes.CHANGE_LIST: {
+        case actionTypes.MOUSE_ENTER: {
+            console.log(action.val, state)
             return {
                 ...state,
-                list: action.data
+                mouseIn: true
+            }
+        }
+        case actionTypes.MOUSE_LEAVE: {
+            console.log(action.val, state)
+            return {
+                ...state,
+                mouseIn: false
+            }
+        }
+        case actionTypes.CHANGE_LIST: {
+            console.log(action.val)
+            return {
+                ...state,
+                list: action.data,
+                totalPage: action.totalPage
+            }
+        }
+        case actionTypes.CHANGE_PAGE: {
+            return {
+                ...state,
+                page: action.page
             }
         }
     }
