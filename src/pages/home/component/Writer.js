@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 class Writer extends Component {
     render () {
         return (
-            <div>Detail</div>
+            <div className={'writerWrap'}>
+
+            </div>
         )
     }
 }

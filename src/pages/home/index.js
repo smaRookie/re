@@ -4,8 +4,16 @@ import Recommend from './component/Recommend'
 import ToPic from './component/ToPic'
 import Writer from './component/Writer'
 import './index.css'
+import axios from 'axios'
 
 class Home extends Component {
+    componentDidMount () {
+        axios.get('/api/home.json').then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     render () {
         return (
             <div className="homeWrap">

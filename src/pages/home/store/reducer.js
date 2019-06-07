@@ -15,6 +15,13 @@ const defaultState = {
         imgUrl: '',
         title: 123,
         desc: 'asdf'
+    }],
+    recommendList: [{
+        id: 0,
+        imgUrl: '11'
+    }, {
+        id: 1,
+        imgUrl: '22'
     }]
 }
 
