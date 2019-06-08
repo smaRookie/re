@@ -4,15 +4,12 @@ import Recommend from './component/Recommend'
 import ToPic from './component/ToPic'
 import Writer from './component/Writer'
 import './index.css'
-import axios from 'axios'
+import { actionCreators } from './store/index'
+import { connect } from 'react-redux'
 
 class Home extends Component {
     componentDidMount () {
-        axios.get('/api/home.json').then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        })
+        this.props.changeHomeData()
     }
     render () {
         return (
@@ -31,4 +28,11 @@ class Home extends Component {
     }
 }
 
-export default Home
+const mapDispatch = (dispatch) => {
+    return {
+        changeHomeData () {
+            dispatch(actionCreators.getHomeData())
+        }
+    }
+}
+export default connect(null, mapDispatch)(Home)

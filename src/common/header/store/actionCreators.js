@@ -15,7 +15,7 @@ export const searchBlur = () => ({
     type: actionTypes.SEARCH_BLUR
 })
 
-// 使用thunk中间件这里才能返回函数， 不然aciotn只能返回普通的对象
+// 使用thunk中间件这里才能实现异步操作
 export const getList = () => {
     return (dispatch) => {
         axios.get('/api/headerList.json').then((res) => {

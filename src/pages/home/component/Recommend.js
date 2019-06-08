@@ -13,7 +13,7 @@ class Recommend extends Component {
                                 <div
                                     className={'recommendItem'}
                                     key={item.id}
-                                    style={{background: `url(${item.imgUrl})`}}>
+                                    style={{background: `url(${item.imgUrl})`, backgroundSize: 'contain'}}>
                                 </div>
                             )
                         })
