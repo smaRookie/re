@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-class ToPic extends Component {
+class ToPic extends PureComponent {
     render () {
         return (
             <div className={'topicWrap'}>

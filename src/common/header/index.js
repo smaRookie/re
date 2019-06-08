@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import './index.css'
 import { connect } from 'react-redux'
 import { actionCreators }  from './store'
-class Header extends Component {
+import { Link } from 'react-router-dom'
+class Header extends PureComponent {
     constructor(props) {
         super(props)
     }
@@ -34,7 +35,7 @@ class Header extends Component {
     render() {
         return (
             <div className="header">
-                <a href="/" className="icon"></a>
+                <Link to="/" className="icon"></Link>
                 <div className="nav">
                     <span className="left nav-item nav-active">首页</span>
                     <span className="left nav-item">下载App</span>

@@ -29,3 +29,11 @@ export const getMoreList = () => {
         })
     }
 }
+
+export const changeScroll = (flag) => {
+    const action = {
+        type: actionTypes.CHANGE_SCROLL,
+        showScroll: flag
+    }
+    return action
+}

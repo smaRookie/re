@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import List from './component/List'
 import Recommend from './component/Recommend'
 import ToPic from './component/ToPic'
@@ -7,9 +7,23 @@ import './index.css'
 import { actionCreators } from './store/index'
 import { connect } from 'react-redux'
 
-class Home extends Component {
+class Home extends PureComponent {
     componentDidMount () {
         this.props.changeHomeData()
+        this.bindEvent()
+        this.handleScrollTop = this.handleScrollTop.bind(this)
+    }
+    componentWillUnmount() {
+        this.removeEvent()
+    }
+    removeEvent () {
+        window.removeEventListener('scroll', this.props.changeScroll)
+    }
+    bindEvent () {
+        window.addEventListener('scroll', this.props.changeScroll)
+    }
+    handleScrollTop () {
+        window.scroll(0, 0)
     }
     render () {
         return (
@@ -23,8 +37,17 @@ class Home extends Component {
                     <Recommend/>
                     <Writer/>
                 </div>
+                {
+                    this.props.showScroll ? <div className={'toTop'} onClick={this.handleScrollTop}>顶部</div> : null
+                }
             </div>
         )
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        showScroll: state.home.showScroll
     }
 }
 
@@ -32,7 +55,14 @@ const mapDispatch = (dispatch) => {
     return {
         changeHomeData () {
             dispatch(actionCreators.getHomeData())
+        },
+        changeScroll () {
+            if (document.documentElement.scrollTop > 200) {
+                dispatch(actionCreators.changeScroll(true))
+            } else {
+                dispatch(actionCreators.changeScroll(false))
+            }
         }
     }
 }
-export default connect(null, mapDispatch)(Home)
+export default connect(mapStateToProps, mapDispatch)(Home)

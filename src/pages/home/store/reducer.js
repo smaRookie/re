@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes'
 const defaultState = {
     topicList: [],
     articleList: [],
-    recommendList: []
+    recommendList: [],
+    showScroll: false
 }
 
 export default (state = defaultState, action) => {
@@ -20,6 +21,12 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 articleList: [...state.articleList,...action.articleList],
+            }
+        }
+        case actionTypes.CHANGE_SCROLL: {
+            return {
+                ...state,
+                showScroll: action.showScroll
             }
         }
         default: {

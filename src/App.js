@@ -12,9 +12,9 @@ function App() {
     <div className="App">
         <Provider store={store}>
             <div>
-                <Header />
                 <HashRouter>
                     <div>
+                        <Header />
                         <Route path='/' exact component={Home}></Route>
                         <Route path='/detail' exact component={Detail}></Route>
                     </div>

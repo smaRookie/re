@@ -1,21 +1,24 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { actionCreators } from '../store'
+import { Link } from 'react-router-dom'
 
-class List extends Component {
+class List extends PureComponent {
     render () {
         return (
             <div>
                 {
                     this.props.list.map((item, index) => {
                         return (
-                            <div className="listItem" key={index}>
-                                <img className={'pic'} src={item.imgUrl} alt=""/>
-                                <div className={'listInfo'}>
-                                    <h3 className={'title'}>{item.title}</h3>
-                                    <p className={'desc'}>{item.desc}</p>
+                            <Link to="/detail" key={index}>
+                                <div className="listItem">
+                                    <img className={'pic'} src={item.imgUrl} alt=""/>
+                                    <div className={'listInfo'}>
+                                        <h3 className={'title'}>{item.title}</h3>
+                                        <p className={'desc'}>{item.desc}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         )
                     })
                 }
