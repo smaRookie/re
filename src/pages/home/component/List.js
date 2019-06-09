@@ -10,7 +10,7 @@ class List extends PureComponent {
                 {
                     this.props.list.map((item, index) => {
                         return (
-                            <Link to="/detail" key={index}>
+                            <Link to={`/detail/${item.id}`} key={index}>
                                 <div className="listItem">
                                     <img className={'pic'} src={item.imgUrl} alt=""/>
                                     <div className={'listInfo'}>

@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import './index.css'
 import { connect } from 'react-redux'
 import { actionCreators }  from './store'
+import { actionCreators as actionCreatorsLogin }  from './../../pages/login/store'
 import { Link } from 'react-router-dom'
 class Header extends PureComponent {
     constructor(props) {
@@ -39,7 +40,12 @@ class Header extends PureComponent {
                 <div className="nav">
                     <span className="left nav-item nav-active">首页</span>
                     <span className="left nav-item">下载App</span>
-                    <span className="right nav-item">登录</span>
+                    {
+                        this.props.login ? <span className="right nav-item" onClick={this.props.loginOut}>退出</span> :
+                            <Link to={'/login'}>
+                                <span className="right nav-item">登录</span>
+                            </Link>
+                    }
                     <span className="right nav-item"><i className="iconfont">&#xe636;</i></span>
                     <div className="searchWrap">
                         <input className={`search ${this.props.focused ? 'focused' : ''}`}
@@ -123,7 +129,8 @@ const mapStateToProps = (state) => {
         list: state.header.list,
         page: state.header.page,
         mouseIn: state.header.mouseIn,
-        totalPage: state.header.totalPage
+        totalPage: state.header.totalPage,
+        login: state.login.login
     }
 }
 const mapDispathToProps = (dispatch) => {
@@ -163,6 +170,9 @@ const mapDispathToProps = (dispatch) => {
             dom.style.transform = 'rotate(' + (originAngle + 360) + 'deg)';
             dispatch(actionCreators.changePage(page, totalPage))
         },
+        loginOut () {
+            dispatch(actionCreatorsLogin.loginOut())
+        }
     }
 }
 // 连接redux
