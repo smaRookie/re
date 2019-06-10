@@ -5,6 +5,7 @@ import reducer from './reducer'
 
 const store = createStore(
     reducer,
+    //  使用thunk
     applyMiddleware(thunk)
 )
 
